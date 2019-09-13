@@ -39,4 +39,8 @@ class Driver
             driver.total_distance > mileage
         end
     end
+
+    def dummy_method
+        "I don't do anything"
+    end
 end
