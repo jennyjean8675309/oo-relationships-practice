@@ -39,12 +39,12 @@
  -- How do we know if the method we're being asked to build is an instance method, or a class method?
  -- We're at the point now where we're building out a lot of code that relies on a lot of *other* code in order to work - DON'T MAKE ASSUMPTIONS!
 
-    -- Passenger should have an instance method, #drivers, that returns all passengers a driver has ridden with - where is the *single source of truth* for that relationship? --> Ride!!!
+    Passenger should have an instance method, #drivers, that returns all passengers a driver has ridden with - where is the *single source of truth* for that relationship? --> Ride!!!
     Ride now needs a class method that keeps track of all rides that we create so we can use it in Passenger
 
-    -- how do we create a class variable to keep track of our instances of Ride?
-    -- how do we create a class method that will return all of our rides?
-    -- at what point in our code should we be adding instances of Ride to that array?
+    - how do we create a class variable to keep track of our instances of Ride?
+    - how do we create a class method that will return all of our rides?
+    - at what point in our code should we be adding instances of Ride to that array?
 
  Test it!
 
