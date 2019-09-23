@@ -36,5 +36,5 @@ Write out the relationships using has_many, belongs_to and has_many_through. Cre
   - returns the passenger object for that ride
 - #driver
   - returns the driver object for that ride
-  - .average_distance
+- .average_distance
   - should find the average distance of all rides
