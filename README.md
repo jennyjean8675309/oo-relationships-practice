@@ -4,7 +4,7 @@
     -- driver has many rides
     -- ride belongs to a passenger and a driver (is initialized with a distance (as a float))
 
-    Following the *single source of truth* rule, determine which model keeps track of its relationship(s) with the other model(s)
+    -- Following the *single source of truth* rule, determine which model keeps track of its relationship(s) with the other model(s)
 
 ## Step 2. Create the files you need
  -- Convention for model file names 
@@ -13,7 +13,7 @@
     -- singularize model names (i.e. cat vs. cats)
     -- .rb extension
 
-    passenger.rb, driver.rb, ride.rb
+    -- passenger.rb, driver.rb, ride.rb
 
 ## Step 3. Define classes and initialize methods (using what you've outlined in Step 1.)
  -- Which model is responsible for keeping track of its relationship(s) with the other model(s)
@@ -39,12 +39,12 @@
  -- How do we know if the method we're being asked to build is an instance method, or a class method?
  -- We're at the point now where we're building out a lot of code that relies on a lot of *other* code in order to work - DON'T MAKE ASSUMPTIONS!
 
-    Passenger should have an instance method, #drivers, that returns all passengers a driver has ridden with - where is the *single source of truth* for that relationship? --> Ride!!!
+    -- Passenger should have an instance method, #drivers, that returns all passengers a driver has ridden with - where is the *single source of truth* for that relationship? --> Ride!!!
     Ride now needs a class method that keeps track of all rides that we create so we can use it in Passenger
 
-    - how do we create a class variable to keep track of our instances of Ride?
-    - how do we create a class method that will return all of our rides?
-    - at what point in our code should we be adding instances of Ride to that array?
+    -- how do we create a class variable to keep track of our instances of Ride?
+    -- how do we create a class method that will return all of our rides?
+    -- at what point in our code should we be adding instances of Ride to that array?
 
  Test it!
 
