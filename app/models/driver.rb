@@ -13,34 +13,21 @@ class Driver
     end
 
     def rides
-        Ride.all.select do |ride|
-            ride.driver == self
-        end
+        Ride.all.select{ |ride| ride.driver == self }
     end
 
     def passengers
-        self.rides.collect do |ride|
-            ride.passenger
-        end
+        self.rides.map{ |ride| ride.passenger }
     end
 
+    # though the deliverables don't ask for it, because we know that we need a way of checking each driver's total mileage in order to determine which drivers have exceeded a certain mileage, it's a good idea to create a helper method
     def total_distance
         total_distance = 0
-
-        self.rides.each do |ride|
-            total_distance += ride.distance
-        end
-
+        self.rides.map{ |ride| total_distance += ride.distance }
         total_distance
     end
 
-    def self.mileage_cap(mileage)
-        self.all.select do |driver|
-            driver.total_distance > mileage
-        end
-    end
-
-    def dummy_method
-        "I don't do anything"
+    def self.mileage_cap(distance)
+        self.all.select{ |driver| driver.total_distance > distance }
     end
 end

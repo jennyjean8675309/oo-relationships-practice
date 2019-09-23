@@ -1,24 +1,60 @@
-## Installation
-Clone this repo from Github. CD into the main directory using your console and run `bundle install` to install all Gem dependencies.
+## Step 1. Understand (and draw out) model relationships
+ -- Passenger, Driver, Ride
+    -- passenger has many rides
+    -- driver has many rides
+    -- ride belongs to a passenger and a driver (is initialized with a distance (as a float))
 
-## Exercises
-This repo contains domains for practicing building Object-Oriented Relationships. The descriptions for these exercises are located in the `exercises` directory. At the top of each file is a level indicating whether it is an easy, medium or hard domain. Harder levels include more models or more complex relationships. The harder models also include less explicit instructions about what methods to write. You should work to derive the methods that need to be defined from the relationship information given.
+    Following the *single source of truth* rule, determine which model keeps track of its relationship(s) with the other model(s)
 
-#### Easy
-- [Airbnb](./exercises/airbnb.md)
-- [Bakery](./exercises/bakery.md)
-- [Lyft](./exercises/lyft.md)
-#### Medium
-- [IMDB](./exercises/imdb.md)
-#### Hard
-- [Crowdfunding](./exercises/crowdfunding.md)
-- [Gym](./exercises/gym.md)
+## Step 2. Create the files you need
+ -- Convention for model file names 
+    -- lowercase
+    -- if more than one word, snake_case 
+    -- singularize model names (i.e. cat vs. cats)
+    -- .rb extension
 
-## Writing Code
-You should write all your code for these domains in files in the `app/models` directory. You can create models for all of the challenges in there. If you name the models as specified, none of the exercises should conflict with each other.
+    passenger.rb, driver.rb, ride.rb
 
-## Testing Your Code
-We've provided you with a console that you can use to test your code. Write all your code in the `app` folder so that it is loaded into the environment. To enter a console session, run `ruby tools/console.rb`. You'll be able to test out the methods that you write here.
+## Step 3. Define classes and initialize methods (using what you've outlined in Step 1.)
+ -- Which model is responsible for keeping track of its relationship(s) with the other model(s)
+ -- Test your code!
 
-## Creating Relationships
-The complex relationships are not simple has_many_through or join relationships, so take the time to plan them out and draw them. If you see multiple ways to build those relationships, try both of them and see if you can identify benefits and weaknesses to each of those domain models. During project mode (and as a working developer) you will be responsible for building out domain models to represent real world situations. A poorly thought out domain can lead to brittle code that requires a lot of maintenance and rewriting in the future.
+## Step 4. Building out a test file
+ -- All of your model files need to communicate with one another somehow. In this repository, that connection has already been created for you in config/environment.rb...
+
+                    require_all 'app'   --> this line is saying 'require everything in the /app folder'
+
+ -- You will write your test code in tools/console.rb, which is requiring the environment.rb file we just looked at...
+
+                    require_relative '../config/environment.rb'
+
+ -- run this file using 
+
+                    ruby tools/console.rb 
+
+## Step 5. Testing methods (it's really up to you!)
+ -- Faking a test file - all tests, no matter which testing framework you use, include code that evaluates to either true or false, to indicate whether a test passes or fails (these are test assertions)
+
+## Step 6. Build out deliverables in README one. by. one. ...and then test them... one. by. one.
+ -- How do we know if the method we're being asked to build is an instance method, or a class method?
+ -- We're at the point now where we're building out a lot of code that relies on a lot of *other* code in order to work - DON'T MAKE ASSUMPTIONS!
+
+    Passenger should have an instance method, #drivers, that returns all passengers a driver has ridden with - where is the *single source of truth* for that relationship? --> Ride!!!
+    Ride now needs a class method that keeps track of all rides that we create so we can use it in Passenger
+
+    - how do we create a class variable to keep track of our instances of Ride?
+    - how do we create a class method that will return all of our rides?
+    - at what point in our code should we be adding instances of Ride to that array?
+
+ Test it!
+
+## Other Stuff to Keep in Mind...
+ -- Be sure to check for *false* test cases
+ -- Your first goal is to get everything working, but once you do, check back through your code and see if there are any places to refactor (is your code DRY? can you create some helper methods?)
+
+
+
+
+
+
+

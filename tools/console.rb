@@ -4,82 +4,99 @@ def reload
   load 'config/environment.rb'
 end
 
-driver1 = Driver.new("Hagrid")
-driver2 = Driver.new("Harry")
-driver3 = Driver.new("Ron")
+# Classes and instances to test
+juju = Passenger.new("Juju")
+big = Passenger.new("Big")
+porky = Passenger.new("Porky")
 
-bart = Passenger.new("Bart")
-lisa = Passenger.new("Lisa")
-maggie = Passenger.new("Maggie")
+jenny = Driver.new("Jenny")
+oscar = Driver.new("Oscar")
+ernie = Driver.new("Ernie")
 
-ride1 = Ride.new(driver1, lisa, 50.0)
-ride2 = Ride.new(driver1, bart, 5.0)
-ride3 = Ride.new(driver2, bart, 3.5)
-ride4 = Ride.new(driver1, maggie, 75.0)
-ride5 = Ride.new(driver3, bart, 10.0)
-ride6 = Ride.new(driver3, maggie, 10.0)
-ride7 = Ride.new(driver3, lisa, 101)
+ride1 = Ride.new(juju, jenny, 10.0)
+ride2 = Ride.new(juju, oscar, 50.0)
+ride3 = Ride.new(porky, ernie, 5.0)
+ride4 = Ride.new(juju, ernie, 260.0)
+ride5 = Ride.new(big, oscar, 15.0)
 
-puts Driver.all.include?(driver1) 
-puts Driver.all.include?(driver2)
-puts Driver.all.include?(driver3)
+# Puts-ing out statements to mimic a test file
+puts "A passenger is initialized with a name"
+# Here we're mimicking test assertions - all tests, no matter which testing framework you use, include code that evaluates to either true or false, to indicate whether a test passes or fails
+puts juju.name == "Juju"
 
-puts Passenger.all.include?(bart)
-puts Passenger.all.include?(lisa)
-puts Passenger.all.include?(maggie)
+puts "******************************"
 
-puts "A ride knows its passenger"
-puts ride1.passenger == lisa
-puts ride3.passenger == bart
-puts ride5.passenger == bart
+puts "A driver is initialized with a name"
+puts jenny.name == "Jenny"
 
-puts "A ride knows its driver"
-puts ride2.driver == driver1
-puts ride4.driver == driver1
-puts ride6.driver == driver3
+puts "******************************"
 
-puts "The Ride class can calculate its average distance"
-puts Ride.average_distance
+puts "A ride is initialized with a passenger, a driver, and a distance"
+puts ride1.passenger == juju
+puts ride1.driver == jenny
+puts ride1.distance == 10.0
 
-puts "A passenger knows which rides they've taken"
-puts bart.rides.include?(ride2)
-puts bart.rides.include?(ride3)
-puts bart.rides.include?(ride5)
-puts bart.rides.include?(ride1) == false
+puts "Ride has a class method that returns all rides"
+puts Ride.all.include?(ride1) == true
+puts Ride.all.include?(juju) == false
 
-puts "A passenger knows which drivers have taken them on rides"
-puts bart.drivers.include?(driver1)
-puts bart.drivers.include?(driver2)
-puts bart.drivers.include?(driver3)
-puts maggie.drivers.include?(driver2) == false
+puts "Passenger has an instance method that returns all drivers that have driven that passenger"
+puts juju.drivers.include?(jenny) == true
+puts juju.drivers.include?(oscar) == true
+puts juju.drivers.include?(ernie) == false
 
-puts "A passenger knows the total distance they've traveled"
-puts bart.total_distance == 18.5
+puts "Passenger has an instance method that returns all rides that a passenger has taken"
+puts juju.rides.include?(ride1) == true
+puts juju.rides.include?(ride2) == true
+puts juju.rides.include?(ride3) == false
 
-puts "The Passenger class knows its premium members"
-puts Passenger.premium_members.include?(lisa)
-puts Passenger.premium_members.include?(bart) == false
+puts "Passenger has a class method that returns all passengers"
+puts Passenger.all.include?(juju) == true
+puts Passenger.all.include?(big) == true
+puts Passenger.all.include?(oscar) == false
 
-puts "A driver knows about its rides"
-puts driver1.rides.include?(ride1)
-puts driver1.rides.include?(ride2)
-puts driver1.rides.include?(ride4)
-puts driver1.rides.include?(ride7) == false
+puts "Passenger has an instance method that returns the total distance a passenger has traveled"
+puts juju.total_distance == 60
 
-puts "A driver knows which passengers they've driven"
-puts driver2.passengers.include?(bart)
-puts driver2.passengers.include?(maggie) == false
+puts "Passenger has a class method that returns all passengers that had traveled over 100 miles total"
+puts Passenger.premium_members.include?(juju) == true
+puts Passenger.premium_members.include?(big) == false
 
-puts "A driver knows the total distance they've driven"
-puts driver2.total_distance == 3.5
-puts driver3.total_distance == 121.0
+puts "******************************"
 
-puts "Drivers can be selected by a mileage cap"
-puts Driver.mileage_cap(100).include?(driver3)
-puts Driver.mileage_cap(100).include?(driver1)
-puts Driver.mileage_cap(100).include?(driver2) == false
-puts Driver.mileage_cap(125).include?(driver1)
-puts Driver.mileage_cap(125).include?(driver3) == false
+puts "Driver has a class method that returns all drivers"
+puts Driver.all.include?(jenny) == true
+puts Driver.all.include?(oscar) == true
+puts Driver.all.include?(ernie) == true
+puts Driver.all.include?(juju) == false
+
+puts "Driver has an instance method that returns all rides a driver has given"
+puts oscar.rides.include?(ride2) == true
+puts oscar.rides.include?(ride5) == true
+puts oscar.rides.include?(ride1) == false
+
+puts "Driver has an instance method that returns all passengers a driver has given a ride to"
+puts jenny.passengers.include?(juju) == true
+puts jenny.passengers.include?(porky) == false
+
+puts "Driver has an instance method that returns the total distance each driver has driven"
+puts oscar.total_distance == 65.0
+
+puts "Driver has a class method that takes an argument of a distance, and returns all drivers who have exceeded that mileage"
+puts Driver.mileage_cap(15).include?(ernie) == true
+puts Driver.mileage_cap(15).include?(oscar) == true
+puts Driver.mileage_cap(15).include?(jenny) == false
+puts Driver.mileage_cap(200).include?(ernie) == true
+puts Driver.mileage_cap(200).include?(oscar) == false
+
+puts "Ride has an instance method that returns the passenger for each ride"
+puts ride1.passenger == juju
+
+puts "Ride has an instance method that returns the driver for each ride"
+puts ride1.driver == jenny
+
+puts "Ride has a class method that returns the average distance for all rides"
+puts Ride.average_distance == 68.0
 
 binding.pry
 0

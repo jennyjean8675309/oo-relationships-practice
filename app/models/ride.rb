@@ -1,10 +1,12 @@
 class Ride
-    attr_reader :driver, :passenger, :distance
+    attr_reader :passenger, :driver, :distance
+
     @@all = []
 
-    def initialize(driver, passenger, distance)
-        @driver = driver
+    # Because a ride belongs to a passenger, and a ride belongs to a driver, ride is the model responsible for keeping track of those relationships
+    def initialize(passenger, driver, distance)
         @passenger = passenger
+        @driver = driver
         @distance = distance
         @@all << self
     end
@@ -15,13 +17,7 @@ class Ride
 
     def self.average_distance
         total_distance = 0
-        
-        self.all.each do |ride|
-            total_distance += ride.distance
-        end
-
-        number_of_rides = self.all.length
-
-        average = (total_distance / number_of_rides).round(2)
+        self.all.map{ |ride| total_distance += ride.distance }
+        total_distance / self.all.length
     end
 end
